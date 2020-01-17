@@ -8,12 +8,13 @@
 
 import React from 'react';
 import {StatusBar} from 'react-native';
-import StartPage from './screen/start';
+import AppRoutes from './app/appRoutes';
+import StartPage from './app/screen/start';
 const App: () => React$Node = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <StartPage />
+      <StatusBar barStyle="light-content" />
+      <AppRoutes />
     </>
   );
 };
