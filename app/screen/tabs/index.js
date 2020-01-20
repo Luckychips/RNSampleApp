@@ -8,24 +8,27 @@ const TabNavigator = createBottomTabNavigator({
     Feed: {
         screen: FeedPage,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => {
-                return <Icon name="bell" size={24} color={'#1f1f1f'} />;
+            tabBarIcon: ({focused}) => {
+                const color = focused ? '#1f1f1f' : '#efefef';
+                return <Icon name="bell" size={24} color={color} />;
             },
         },
     },
     Explore: {
         screen: ExplorePage,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => {
-                return <Icon name="search" size={24} color={'#1f1f1f'} />;
+            tabBarIcon: ({focused}) => {
+                const color = focused ? '#1f1f1f' : '#efefef';
+                return <Icon name="search" size={24} color={color} />;
             },
         },
     },
     MyPage: {
         screen: MyPage,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => {
-                return <Icon name="user-nurse" size={24} color={'#1f1f1f'} />;
+            tabBarIcon: ({focused}) => {
+                const color = focused ? '#1f1f1f' : '#efefef';
+                return <Icon name="user-nurse" size={24} color={color} />;
             },
         },
     },
