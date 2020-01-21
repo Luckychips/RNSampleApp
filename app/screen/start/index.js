@@ -4,7 +4,7 @@ import {NavigationActions, StackActions} from 'react-navigation';
 import styled from 'styled-components';
 const Container = styled.View`
   flex: 1; 
-  background-color: #99afd0;  
+  background-color: #99afd0;
   justify-content: center;
 `;
 const SkipButton = styled.TouchableOpacity`

@@ -7,13 +7,13 @@ const AppRoutes = createStackNavigator({
     StartPage: {
         screen: StartPage,
         navigationOptions: ({navigation}) => ({
-            header: null,
+            headerShown: false,
         }),
     },
     TabPage: {
         screen: TabPage,
         navigationOptions: ({navigation}) => ({
-            header: null,
+            headerShown: false,
         }),
     },
 });
