@@ -55,6 +55,7 @@ const AnimatedPlaceholderTextInput = props => {
                 onBlur={onBlur}
                 onChangeText={text => props.onChangeText(text)}
                 value={props.value}
+                returnKeyType="done"
                 marginTop={props.marginTop ? props.marginTop : 32}
                 marginLeft={props.marginLeft ? props.marginLeft : 24}
                 marginRight={props.marginRight ? props.marginRight : 24}
