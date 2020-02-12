@@ -7,7 +7,7 @@ import BookItem from '../../../components/BookItem';
 import HiddenToBottom from './HiddenToBottom';
 const {height} = Dimensions.get('window');
 
-const MyPage = () => {
+const MyPage = props => {
     const [list, setList] = useState([]);
     const [rendered, setRendered] = useState(false);
     useEffect(() => {
@@ -49,7 +49,16 @@ const MyPage = () => {
                         showsVerticalScrollIndicator={false}
                         data={list}
                         numColumns={3}
-                        renderItem={({ item, index}) => <BookItem index={index} item={item} numColumns={3} />}
+                        renderItem={({ item, index}) => {
+                            return (
+                                <BookItem
+                                    index={index}
+                                    item={item}
+                                    numColumns={3}
+                                    moveToDetail={() => props.navigation.push('DetailBookInfoPage')}
+                                />
+                            );
+                        }}
                         keyExtractor={item => item.isbn}
                     />
                 </AdjustFitSafeArea>

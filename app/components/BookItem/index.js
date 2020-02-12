@@ -37,7 +37,7 @@ const BookItem = props => {
         return margin / 2;
     };
     return (
-        <TouchableOpacity activeOpacity={0.9}>
+        <TouchableOpacity activeOpacity={0.9} onPress={props.moveToDetail}>
             <ItemBox
                 width={width / props.numColumns - (margin * (props.numColumns + 1) / props.numColumns)}
                 ml={getItemMargin('left')}
