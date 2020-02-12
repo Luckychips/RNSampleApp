@@ -11,10 +11,10 @@ const Title = styled.Text`
   font-size: 20px;
 `;
 
-const BookInfo = () => {
+const BookInfo = props => {
     return (
         <Container>
-            <Title>book page</Title>
+            <Title>{props.navigation.state.params.bookTitle}</Title>
         </Container>
     );
 };
