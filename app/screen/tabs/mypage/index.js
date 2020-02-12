@@ -56,7 +56,8 @@ const MyPage = props => {
                                     item={item}
                                     numColumns={3}
                                     moveToDetail={() => props.navigation.push('DetailBookInfoPage', {
-                                        bookTitle: item.title
+                                        bookTitle: item.title,
+                                        bookThumbnail: item.thumbnail
                                     })}
                                 />
                             );

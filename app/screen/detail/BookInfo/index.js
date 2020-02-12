@@ -11,10 +11,16 @@ const Title = styled.Text`
   font-size: 20px;
 `;
 
+const BookThumbnail = styled.Image`
+  width: 150px;
+  height: 200px;
+  resize-mode: contain;
+`;
+
 const BookInfo = props => {
     return (
         <Container>
-            <Title>{props.navigation.state.params.bookTitle}</Title>
+            <BookThumbnail source={{uri: props.navigation.state.params.bookThumbnail}}  />
         </Container>
     );
 };
