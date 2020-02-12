@@ -3,6 +3,7 @@ export const THEME_COLOR = '';
 export const STATUS_BAR_HEIGHT = 20;
 export const IPHONE_X_NOTCH_HEIGHT = 44;
 export const IPHONE_X_BOTTOM_NOTCH_HEIGHT = 34;
+export const TAB_NAVIGATION_BAR_HEIGHT = 50;
 export const IS_X_SIZE = dim => {
     return dim.height === 812 || dim.width === 812;
 };

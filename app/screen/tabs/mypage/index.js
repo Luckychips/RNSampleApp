@@ -1,23 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList, View, ActivityIndicator, Dimensions} from 'react-native';
-import {Image} from 'react-native-elements';
-import styled from 'styled-components';
+import {StatusBar, FlatList, Dimensions} from 'react-native';
 import {KAKAO_RESTAPI_KEY} from 'react-native-dotenv';
 import {Background, AdjustFitSafeArea} from '../../../components/Elements';
-import CurtainToPull from './CurtainToPull';
-const {width, height} = Dimensions.get('window');
-
-const GridItem = props => {
-    return (
-        <View style={{width: width / 3}}>
-            <Image
-                style={{width: '100%', height: 200, resizeMode: 'contain'}}
-                source={{uri: props.item.thumbnail}}
-                PlaceholderContent={<ActivityIndicator />}
-            />
-        </View>
-    );
-};
+import {IPHONE_X_BOTTOM_NOTCH_HEIGHT, TAB_NAVIGATION_BAR_HEIGHT} from '../../../constants';
+import BookItem from '../../../components/BookItem';
+import HiddenToBottom from './HiddenToBottom';
+const {height} = Dimensions.get('window');
 
 const MyPage = () => {
     const [list, setList] = useState([]);
@@ -53,17 +41,21 @@ const MyPage = () => {
     };
 
     return (
-        <Background bgColor={'#1f1f1f'}>
-            <AdjustFitSafeArea>
-                <FlatList
-                    data={list}
-                    numColumns={3}
-                    renderItem={({ item}) => <GridItem item={item} />}
-                    keyExtractor={item => item.isbn}
-                />
-            </AdjustFitSafeArea>
-            <CurtainToPull />
-        </Background>
+        <>
+            <StatusBar barStyle="dark-content" />
+            <Background>
+                <AdjustFitSafeArea height={height - IPHONE_X_BOTTOM_NOTCH_HEIGHT - TAB_NAVIGATION_BAR_HEIGHT}>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        data={list}
+                        numColumns={3}
+                        renderItem={({ item, index}) => <BookItem index={index} item={item} numColumns={3} />}
+                        keyExtractor={item => item.isbn}
+                    />
+                </AdjustFitSafeArea>
+                <HiddenToBottom />
+            </Background>
+        </>
     );
 };
 

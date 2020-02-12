@@ -15,16 +15,16 @@ const Puller = styled.View`
   border-right-width: 2px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  border-color: #ffffff;
+  border-color: #1f1f1f;
 `;
 const InnerContent = styled.View`
   width: ${width}px;
   height: ${height}px;
   z-index: 2;
-  background-color: #ffffff;
+  background-color: #abffab;
 `;
 
-const CurtainToPull = () => {
+const HiddenToBottom = () => {
     const [y, setY] = useState(0);
     const [toTopPosition, setToTopPosition] = useState(false);
     const initialPosition = {x: 0, y: y};
@@ -91,7 +91,7 @@ const CurtainToPull = () => {
 
         return posY;
     };
-    const stickyViewStyles = {
+    const animatedViewStyles = {
         position: 'absolute',
         zIndex: 2,
         alignItems: 'center'
@@ -101,15 +101,15 @@ const CurtainToPull = () => {
         <Animated.View
             {...panResponder.panHandlers}
             style={[
-                stickyViewStyles,
+                animatedViewStyles,
                 position.getLayout(),
             ]}>
             <Puller>
-                <Icon name="chevron-up" size={18} color={'#ffffff'} />
+                <Icon name="chevron-up" size={18} color={'#1f1f1f'} />
             </Puller>
             <InnerContent />
         </Animated.View>
     );
 };
 
-export default CurtainToPull;
+export default HiddenToBottom;

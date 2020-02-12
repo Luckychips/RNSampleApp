@@ -1,6 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {TAB_NAVIGATION_BAR_HEIGHT} from '../../constants';
 import FeedPage from './feed';
 import ExplorePage from './explore';
 import MyPage from './mypage';
@@ -40,7 +41,7 @@ const TabNavigator = createBottomTabNavigator({
         // activeTintColor: '#000000',
         // inactiveTintColor: '#c8c8c8',
         style: {
-            height: 50,
+            height: TAB_NAVIGATION_BAR_HEIGHT,
         },
     },
 });
