@@ -2,6 +2,14 @@ import React from 'react';
 import {SectionList} from 'react-native';
 import styled from 'styled-components';
 
+/*
+* SectionList
+*
+* 뷰 내부에서만 헤더가 고정이 됨 같은 depth의 다른 뷰가 있으면,
+* 컨텐츠 길이만큼 밑에서 스크롤 이벤트가 발생하고 헤더가 고정된다.
+*
+* */
+
 const HeaderBox = styled.View`
   width: 100%;
   padding: 15px;
@@ -11,7 +19,7 @@ const HeaderText = styled.Text`
   font-size: 24px;
   font-weight: bold;
 `;
-const ItemBox = styled.View`
+const ItemBox = styled.TouchableOpacity`
   padding: 7px;
   background-color: #ffffff;
   border-bottom-width: ${props => props.lastItem ? 0 : 1}px;
@@ -43,7 +51,7 @@ const StickyList = props => {
         <SectionList
             sections={props.list}
             keyExtractor={(item, index) => item + index}
-            renderItem={({ item, index,section }) => <Item index={index} sections={section} text={item} />}
+            renderItem={({ item, index, section }) => <Item index={index} sections={section} text={item} />}
             renderSectionHeader={({ section: { title } }) => <Header title={title} />}
         />
     );
