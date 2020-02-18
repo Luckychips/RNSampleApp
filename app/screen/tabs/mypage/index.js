@@ -11,6 +11,7 @@ const MyPage = props => {
     const [searchKeyword, setSearchKeyword] = useState('인스타그램');
     const [list, setList] = useState([]);
     const [rendered, setRendered] = useState(false);
+    const [page, setPage] = useState(1);
     useEffect(() => {
         setRendered(true);
     }, []);
@@ -19,14 +20,13 @@ const MyPage = props => {
             (async () => {
                 await retrieve();
             })();
-
-            setRendered(false);
         }
     }, [rendered]);
     const retrieve = async () => {
         try {
+            const url = 'https://dapi.kakao.com/v3/search/book?target=title&query=' + searchKeyword + '&page=' + page;
             // title (제목에서 검색) or isbn (ISBN에서 검색) or publisher (출판사에서 검색) or person(인명에서 검색)
-            const response = await fetch('https://dapi.kakao.com/v3/search/book?target=title&query=' + searchKeyword, {
+            const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -35,15 +35,26 @@ const MyPage = props => {
                 }
             });
             const toJson = await response.json();
-            setList(toJson.documents);
+            setList(list.concat(toJson.documents));
+            setRendered(false);
         } catch (e) {
             console.log(e);
         }
     };
     const refresh = () => {
-        const keywords = ['심리학', '머신러닝', '영어', '세계사', '게임'];
-        setSearchKeyword(keywords[Math.floor(Math.random() * keywords.length)]);
-        setRendered(true);
+        if (!rendered) {
+            const keywords = ['심리학', '머신러닝', '영어', '세계사', '게임'];
+            setSearchKeyword(keywords[Math.floor(Math.random() * keywords.length)]);
+            setPage(1);
+            setList([]);
+            setRendered(true);
+        }
+    };
+    const more = () => {
+        if (list.length > 0 && !rendered) {
+            setPage(page + 1);
+            setRendered(true);
+        }
     };
 
     return (
@@ -69,6 +80,8 @@ const MyPage = props => {
                             );
                         }}
                         keyExtractor={item => item.isbn}
+                        onEndReached={more}
+                        onEndReachedThreshold={0.1}
                         refreshControl={
                             <RefreshControl
                                 tintColor={'#3562FF'}
