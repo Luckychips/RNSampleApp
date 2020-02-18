@@ -10,21 +10,30 @@ const {height} = Dimensions.get('window');
 const MyPage = props => {
     const [searchKeyword, setSearchKeyword] = useState('인스타그램');
     const [list, setList] = useState([]);
-    const [rendered, setRendered] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
+    const [perPageCount, setPerPageCount] = useState(12);
     useEffect(() => {
-        setRendered(true);
+        setRefreshing(true);
     }, []);
     useEffect(() => {
-        if (rendered) {
+        if (refreshing) {
             (async () => {
                 await retrieve();
             })();
         }
-    }, [rendered]);
+    }, [refreshing]);
+    useEffect(() => {
+        if (loading) {
+            (async () => {
+                await retrieve();
+            })();
+        }
+    }, [loading]);
     const retrieve = async () => {
         try {
-            const url = 'https://dapi.kakao.com/v3/search/book?target=title&query=' + searchKeyword + '&page=' + page;
+            const url = 'https://dapi.kakao.com/v3/search/book?target=title&query=' + searchKeyword + '&page=' + page + '&size=' + perPageCount;
             // title (제목에서 검색) or isbn (ISBN에서 검색) or publisher (출판사에서 검색) or person(인명에서 검색)
             const response = await fetch(url, {
                 method: 'GET',
@@ -36,24 +45,25 @@ const MyPage = props => {
             });
             const toJson = await response.json();
             setList(list.concat(toJson.documents));
-            setRendered(false);
+            setRefreshing(false);
+            setLoading(false);
         } catch (e) {
             console.log(e);
         }
     };
     const refresh = () => {
-        if (!rendered) {
+        if (!refreshing) {
             const keywords = ['심리학', '머신러닝', '영어', '세계사', '게임'];
             setSearchKeyword(keywords[Math.floor(Math.random() * keywords.length)]);
             setPage(1);
             setList([]);
-            setRendered(true);
+            setRefreshing(true);
         }
     };
     const more = () => {
-        if (list.length > 0 && !rendered) {
-            // setPage(page + 1);
-            // setRendered(true);
+        if (!loading && list.length > 0) {
+            setPage(page + 1);
+            setLoading(true);
         }
     };
 
@@ -79,13 +89,13 @@ const MyPage = props => {
                                 />
                             );
                         }}
-                        keyExtractor={item => item.isbn}
+                        keyExtractor={(item, index) => index + '-' + item.isbn}
                         onEndReached={more}
-                        onEndReachedThreshold={0.1}
+                        onEndReachedThreshold={0}
                         refreshControl={
                             <RefreshControl
                                 tintColor={'#3562FF'}
-                                refreshing={rendered}
+                                refreshing={refreshing}
                                 onRefresh={refresh}
                             />
                         }
