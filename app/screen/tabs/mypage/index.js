@@ -52,8 +52,8 @@ const MyPage = props => {
     };
     const more = () => {
         if (list.length > 0 && !rendered) {
-            setPage(page + 1);
-            setRendered(true);
+            // setPage(page + 1);
+            // setRendered(true);
         }
     };
 
