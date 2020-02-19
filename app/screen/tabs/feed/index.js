@@ -3,9 +3,10 @@ import {Dimensions} from 'react-native';
 import {KAKAO_RESTAPI_KEY} from 'react-native-dotenv';
 import styled from 'styled-components';
 import StickyList from '../../../components/StickyList';
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 const Container = styled.SafeAreaView`
   width: ${width}px;
+  min-height: ${height}px;
 `;
 
 const FeedPage = () => {
@@ -43,29 +44,33 @@ const FeedPage = () => {
     useEffect(() => {
         (async () => {
             await fetchDocs();
-            await fetchVideos();
-            await fetchImages();
-            await fetchBlogs();
-            await fetchBooks();
-            await fetchCafes();
+            // await fetchVideos();
+            // await fetchImages();
+            // await fetchBlogs();
+            // await fetchBooks();
+            // await fetchCafes();
         })();
     }, []);
     const inject = async (toJson, targetIndex, key) => {
         let origin = data.slice();
         let docs = [];
         toJson.documents.map((item) => {
-            if (key.includes('image_url')) {
-                docs.push(item.image_url);
-            } else if (key.includes('blog')) {
-                docs.push(item.blogname + ' (' + item.url + ')');
-            } else if (key.includes(('book'))) {
-                docs.push(item.title + ' [' + item.publisher + ']');
-            } else if (key.includes('cafe')) {
-                docs.push(item.title + ' (' + item.cafename + ')')
-            } else {
-                docs.push(item.title);
+            switch (key) {
+                case 'image_url':
+                    docs.push(item.image_url);
+                    break;
+                case 'blog':
+                    docs.push(item.blogname + ' (' + item.url + ')');
+                    break;
+                case 'book':
+                    docs.push(item.title + ' [' + item.publisher + ']');
+                    break;
+                case 'cafe':
+                    docs.push(item.title + ' (' + item.cafename + ')')
+                    break;
+                default:
+                    docs.push(item.title);
             }
-
         });
 
         origin[targetIndex] = {
@@ -75,9 +80,8 @@ const FeedPage = () => {
 
         setData(origin);
     };
-    const fetchDocs = async () => {
+    const fetchAPI = async (url, targetIndex, key) => {
         try {
-            const url = 'https://dapi.kakao.com/v2/search/web?query=' + keyword;
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -87,95 +91,34 @@ const FeedPage = () => {
                 }
             });
             const toJson = await response.json();
-            await inject(toJson, 0);
+            await inject(toJson, targetIndex, key);
         } catch (e) {
             console.log(e);
         }
+    };
+    const fetchDocs = async () => {
+        const url = 'https://dapi.kakao.com/v2/search/web?query=' + keyword;
+        await fetchAPI(url, 0);
     };
     const fetchVideos = async () => {
-        try {
-            const url = 'https://dapi.kakao.com/v2/search/vclip?query=' + keyword;
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: 'KakaoAK ' + KAKAO_RESTAPI_KEY
-                }
-            });
-            const toJson = await response.json();
-            await inject(toJson, 1);
-        } catch (e) {
-            console.log(e);
-        }
+        const url = 'https://dapi.kakao.com/v2/search/vclip?query=' + keyword;
+        await fetchAPI(url, 1);
     };
     const fetchImages = async () => {
-        try {
-            const url = 'https://dapi.kakao.com/v2/search/image?query=' + keyword;
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: 'KakaoAK ' + KAKAO_RESTAPI_KEY
-                }
-            });
-            const toJson = await response.json();
-            await inject(toJson, 2, 'image_url');
-        } catch (e) {
-            console.log(e);
-        }
+        const url = 'https://dapi.kakao.com/v2/search/image?query=' + keyword;
+        await fetchAPI(url, 2, 'image_url');
     };
     const fetchBlogs = async () => {
-        try {
-            const url = 'https://dapi.kakao.com/v2/search/blog?query=' + keyword;
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: 'KakaoAK ' + KAKAO_RESTAPI_KEY
-                }
-            });
-            const toJson = await response.json();
-            await inject(toJson, 3, 'blog');
-        } catch (e) {
-            console.log(e);
-        }
+        const url = 'https://dapi.kakao.com/v2/search/blog?query=' + keyword;
+        await fetchAPI(url, 3, 'blog');
     };
     const fetchBooks = async () => {
-        try {
-            const url = 'https://dapi.kakao.com/v3/search/book?target=title&query=' + keyword;
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: 'KakaoAK ' + KAKAO_RESTAPI_KEY
-                }
-            });
-            const toJson = await response.json();
-            await inject(toJson, 5, 'book');
-        } catch (e) {
-            console.log(e);
-        }
+        const url = 'https://dapi.kakao.com/v3/search/book?target=title&query=' + keyword;
+        await fetchAPI(url, 5, 'book');
     };
     const fetchCafes = async () => {
-        try {
-            const url = 'https://dapi.kakao.com/v2/search/cafe?query=' + keyword;
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: 'KakaoAK ' + KAKAO_RESTAPI_KEY
-                }
-            });
-            const toJson = await response.json();
-            await inject(toJson, 6, 'cafe');
-        } catch (e) {
-            console.log(e);
-        }
+        const url = 'https://dapi.kakao.com/v2/search/cafe?query=' + keyword;
+        await fetchAPI(url, 6, 'cafe');
     };
 
     return (
