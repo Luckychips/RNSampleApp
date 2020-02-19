@@ -44,7 +44,7 @@ const BookItem = props => {
                 mr={getItemMargin('right')}>
                 <Image
                     style={{width: '100%', height: 180, resizeMode: 'contain'}}
-                    source={{uri: props.item.thumbnail}}
+                    source={props.item.thumbnail ? {uri: props.item.thumbnail} : require('../../assets/empty_book.jpg')}
                     PlaceholderContent={<ActivityIndicator />}
                 />
                 <ItemTitleBox>

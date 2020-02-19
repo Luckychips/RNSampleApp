@@ -8,12 +8,12 @@ import HiddenToBottom from './HiddenToBottom';
 const {height} = Dimensions.get('window');
 
 const MyPage = props => {
+    const perPageCount = 8;
     const [searchKeyword, setSearchKeyword] = useState('인스타그램');
     const [list, setList] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
-    const [perPageCount, setPerPageCount] = useState(12);
     useEffect(() => {
         setRefreshing(true);
     }, []);
@@ -23,14 +23,13 @@ const MyPage = props => {
                 await retrieve();
             })();
         }
-    }, [refreshing]);
-    useEffect(() => {
+
         if (loading) {
             (async () => {
                 await retrieve();
             })();
         }
-    }, [loading]);
+    }, [refreshing, loading]);
     const retrieve = async () => {
         try {
             const url = 'https://dapi.kakao.com/v3/search/book?target=title&query=' + searchKeyword + '&page=' + page + '&size=' + perPageCount;
@@ -44,9 +43,15 @@ const MyPage = props => {
                 }
             });
             const toJson = await response.json();
-            setList(list.concat(toJson.documents));
-            setRefreshing(false);
-            setLoading(false);
+            if (refreshing) {
+                setList(toJson.documents);
+                setRefreshing(false);
+            }
+
+            if (loading) {
+                setList(list.concat(toJson.documents));
+                setLoading(false);
+            }
         } catch (e) {
             console.log(e);
         }
@@ -91,7 +96,7 @@ const MyPage = props => {
                         }}
                         keyExtractor={(item, index) => index + '-' + item.isbn}
                         onEndReached={more}
-                        onEndReachedThreshold={0}
+                        onEndReachedThreshold={0.5}
                         refreshControl={
                             <RefreshControl
                                 tintColor={'#3562FF'}
