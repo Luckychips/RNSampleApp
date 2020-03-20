@@ -47,6 +47,12 @@ target 'RNSampleApp' do
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'RNCMaskedView', :path => '../node_modules/@react-native-community/masked-view'
+  
+  pod 'react-native-maps', path: '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', path: '../node_modules/react-native-maps'
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
+
 
   target 'RNSampleAppTests' do
     inherit! :search_paths

@@ -1,5 +1,6 @@
 import React from 'react';
 import {SectionList} from 'react-native';
+import {withNavigation} from 'react-navigation';
 import styled from 'styled-components';
 
 /*
@@ -40,7 +41,9 @@ const Header = props => {
 
 const Item = props => {
     return (
-        <ItemBox lastItem={props.sections.data.length - 1 === props.index}>
+        <ItemBox lastItem={props.sections.data.length - 1 === props.index} onPress={() => {
+            props.navigation.push('GoogleMapView');
+        }}>
             <ItemText>{props.text}</ItemText>
         </ItemBox>
     );
@@ -51,10 +54,19 @@ const StickyList = props => {
         <SectionList
             sections={props.list}
             keyExtractor={(item, index) => item + index}
-            renderItem={({ item, index, section }) => <Item index={index} sections={section} text={item} />}
+            renderItem={({ item, index, section }) => {
+                return (
+                    <Item
+                        navigation={props.navigation}
+                        index={index}
+                        sections={section}
+                        text={item}
+                    />
+                );
+            }}
             renderSectionHeader={({ section: { title } }) => <Header title={title} />}
         />
     );
 };
 
-export default StickyList;
+export default withNavigation(StickyList);

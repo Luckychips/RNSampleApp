@@ -21,6 +21,8 @@
 		50C78A82893EE7B9BDD7790A /* libPods-RNSampleAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6E1A540CB5A39E4DD26061 /* libPods-RNSampleAppTests.a */; };
 		6E7702600C0ED1F5C5FF1344 /* libPods-RNSampleApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5007CF19C222395395302016 /* libPods-RNSampleApp.a */; };
 		BA144DAC23D18D55002DA9FE /* libreact-native-splash-screen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA144DAB23D18D55002DA9FE /* libreact-native-splash-screen.a */; };
+		BA99AA0B24249FE500B2DBE1 /* libGoogle-Maps-iOS-Utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA99AA0A24249FE500B2DBE1 /* libGoogle-Maps-iOS-Utils.a */; };
+		BA99AA0D24249FE500B2DBE1 /* libreact-native-google-maps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA99AA0C24249FE500B2DBE1 /* libreact-native-google-maps.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 		95F7D2F2A53374CD01C8D4D9 /* Pods-RNSampleApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNSampleApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RNSampleApp-tvOS/Pods-RNSampleApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		B6AF5B3E9618A03B39577527 /* Pods-RNSampleApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNSampleApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RNSampleApp-tvOS/Pods-RNSampleApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		BA144DAB23D18D55002DA9FE /* libreact-native-splash-screen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-splash-screen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA99AA0A24249FE500B2DBE1 /* libGoogle-Maps-iOS-Utils.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libGoogle-Maps-iOS-Utils.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA99AA0C24249FE500B2DBE1 /* libreact-native-google-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-google-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0FBA35780884AF59804E431 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		C820BF1262E944F1A02BC736 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		C9202DC33BC35508BDE74484 /* libPods-RNSampleApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RNSampleApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +104,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA99AA0B24249FE500B2DBE1 /* libGoogle-Maps-iOS-Utils.a in Frameworks */,
+				BA99AA0D24249FE500B2DBE1 /* libreact-native-google-maps.a in Frameworks */,
 				BA144DAC23D18D55002DA9FE /* libreact-native-splash-screen.a in Frameworks */,
 				6E7702600C0ED1F5C5FF1344 /* libPods-RNSampleApp.a in Frameworks */,
 			);
@@ -173,6 +179,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA99AA0A24249FE500B2DBE1 /* libGoogle-Maps-iOS-Utils.a */,
+				BA99AA0C24249FE500B2DBE1 /* libreact-native-google-maps.a */,
 				BA144DAB23D18D55002DA9FE /* libreact-native-splash-screen.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
@@ -444,6 +452,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RNSampleApp/Pods-RNSampleApp-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -463,6 +472,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
